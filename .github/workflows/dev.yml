@@ -15,10 +15,8 @@ jobs:
       - name: Chart Checkout
         uses: actions/checkout@v2
   
-      - name: set branch variable 
-        run: |
-          export BRANCH_NAME="${{ github.ref | replace('refs/heads/', '') }}"
-          echo $BRANCH_NAME
+      - name: Set branch name
+        run: echo "::set-env name=BRANCH_NAME::${{ github.ref | replace('refs/heads/', '') }}"
       
 
       - name: Build the Docker image
