@@ -3,7 +3,7 @@ env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
   IMAGE_REPO_NAME: "react-cache"
-  BRANCH_NAME: "${{ github.ref }}"
+  BRANCH_NAME: "${{ github.ref | replace('refs/heads/', '') }}"
 
 on:
   push:
