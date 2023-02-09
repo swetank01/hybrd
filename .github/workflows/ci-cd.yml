@@ -2,7 +2,7 @@ name: react ci-cd
 env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-  IMAGE_REPO_NAME: "react-cache"
+  IMAGE_REPO_NAME: "react"
 
 on:
   workflow_dispatch:
