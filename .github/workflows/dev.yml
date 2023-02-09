@@ -3,6 +3,7 @@ env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
   IMAGE_REPO_NAME: "react-cache"
+  BRANCH_NAME: "${{ github.ref }}"
 
 on:
   push:
@@ -14,9 +15,6 @@ jobs:
     steps:
       - name: Chart Checkout
         uses: actions/checkout@v2
-
-      - uses: nelonoel/branch-name@v1
-      - run: echo ${BRANCH_NAME}
 
       - name: Build the Docker image
         run: |
