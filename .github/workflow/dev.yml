@@ -1,0 +1,33 @@
+name: react cache
+env:
+  DOCKERHUB_REGISTRY_USER: swetank01
+  DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+  IMAGE_REPO_NAME: "react-cache"
+
+on:
+  push:
+    branches: [ "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Chart Checkout
+        uses: actions/checkout@v2
+
+      - uses: nelonoel/branch-name@v1
+      - run: echo ${BRANCH_NAME}
+
+      - name: Build the Docker image
+        run: |
+          cd angular
+          docker build . --file ./deployment/dev/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$BRANCH_NAME
+          
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.DOCKERHUB_REGISTRY_USER }}
+          password: ${{ env.DOCKERHUB_REGISTRY_PASSWORD }}
+      
+      - name: Docker Push
+        run: docker push $IMAGE_REGISTRY_USER/$IMAGE_REPO_NAME:$BRANCH_NAME
