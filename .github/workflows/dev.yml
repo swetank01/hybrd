@@ -20,7 +20,6 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          cd angular
           docker build . --file ./deployment/dev/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$BRANCH_NAME
           
       - name: Login to DockerHub
