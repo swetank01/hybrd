@@ -30,4 +30,4 @@ jobs:
           password: ${{ env.DOCKERHUB_REGISTRY_PASSWORD }}
       
       - name: Docker Push
-        run: docker push $IMAGE_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
+        run: docker push $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
