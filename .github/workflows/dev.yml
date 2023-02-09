@@ -15,13 +15,13 @@ jobs:
       - name: Chart Checkout
         uses: actions/checkout@v2
   
-      - name: Set branch name
-        run: echo "::set-env name=BRANCH_NAME::${{ github.ref | replace('refs/heads/', '') }}"
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
       
 
       - name: Build the Docker image
         run: |
-          docker build . --file ./deployment/dev/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$BRANCH_NAME
+          docker build . --file ./deployment/dev/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
           
       - name: Login to DockerHub
         uses: docker/login-action@v2
@@ -30,4 +30,4 @@ jobs:
           password: ${{ env.DOCKERHUB_REGISTRY_PASSWORD }}
       
       - name: Docker Push
-        run: docker push $IMAGE_REGISTRY_USER/$IMAGE_REPO_NAME:$BRANCH_NAME
+        run: docker push $IMAGE_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
