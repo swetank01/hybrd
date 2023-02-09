@@ -6,9 +6,6 @@ env:
 
 on:
   workflow_dispatch:
-    paths:
-      - "src/client/Dockerfile"
-      - "src/client**"
 
 jobs:
   build:
