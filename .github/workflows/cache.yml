@@ -6,8 +6,10 @@ env:
 
 on:
   push:
-    branches: [ "dev" ]
-
+    branches: [ "dev, qa, main" ]
+    paths:
+      - "deployment/react-cache/Dockerfile"
+      - "src/client/**"
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -22,7 +24,8 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build . --file ./deployment/dev/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
-          
+  push:
+    needs: build        
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
