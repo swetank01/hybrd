@@ -7,10 +7,10 @@ env:
 on:
   push:
     branches: [ "dev, qa, main" ]
-    paths:
-      - ".github/workflows/cache.yml"
-      - "deployment/react-cache/Dockerfile"
-      - "src/client/package.json"
+#    paths:
+#      - ".github/workflows/cache.yml"
+#      - "deployment/react-cache/Dockerfile"
+#      - "src/client/package.json"
 jobs:
   build:
     runs-on: ubuntu-20.04
