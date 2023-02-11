@@ -9,7 +9,7 @@ on:
     branches: 
       - dev
       - qa
-      - master
+      - main
     paths:
       - ".github/workflows/cache.yml"
       - "deployment/react-cache/Dockerfile"
