@@ -11,7 +11,7 @@ on:
       - qa
       - main
     paths:
-      - ".github/workflows/cache.yml"
+      - ".github/workflows/react-cache.yml"
       - "deployment/react-cache/Dockerfile"
       - "src/client/package.json"
   workflow_dispatch:
