@@ -1,12 +1,19 @@
-name: react ci-cd
+name: react-cache
 env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-  IMAGE_REPO_NAME: "react"
+  IMAGE_REPO_NAME: "react-cache"
 
 on:
-  workflow_dispatch:
-
+  push:
+    branches: 
+      - dev
+      - qa
+      - master
+    paths:
+      - ".github/workflows/cache.yml"
+      - "deployment/react-cache/Dockerfile"
+      - "src/client/package.json"
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -20,10 +27,8 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file ./src/client/Dockerfile --build-arg TAG=$GITHUB_REF_SLUG --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
-  push:
-    runs-on: ubuntu-20.04
-    steps:          
+          docker build . --file ./deployment/react-cache/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
