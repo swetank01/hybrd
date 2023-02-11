@@ -8,8 +8,9 @@ on:
   push:
     branches: [ "dev, qa, main" ]
     paths:
+      - ".github/workflows/cache.yml"
       - "deployment/react-cache/Dockerfile"
-      - "src/client/**"
+      - "src/client/package.json"
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -23,7 +24,7 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file ./deployment/dev/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
+          docker build . --file ./deployment/react-cache/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
