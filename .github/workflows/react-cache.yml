@@ -1,4 +1,4 @@
-name: react cache
+name: react-cache
 env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
@@ -6,7 +6,8 @@ env:
 
 on:
   push:
-    branches: [ "dev, qa, main" ]
+    branches: 
+      - dev
 #    paths:
 #      - ".github/workflows/cache.yml"
 #      - "deployment/react-cache/Dockerfile"
