@@ -7,4 +7,6 @@ WORKDIR /frontend
 COPY . .
 
 RUN yarn
-RUN yarn dev
+
+CMD ["yarn start"]
+EXPOSE 3000
