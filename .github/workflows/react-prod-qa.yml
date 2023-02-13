@@ -5,14 +5,6 @@ env:
   IMAGE_REPO_NAME: "react"
 
 on:
-  push:
-    branches: 
-      - qa
-      - main
-    paths:
-      - ".github/workflows/react-cicd.yml"
-      - "src/client/Dockerfile"
-      - "src/client/**"
   workflow_dispatch:
 
 concurrency:
