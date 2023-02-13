@@ -12,6 +12,7 @@ on:
       - ".github/workflows/react-cicd.yml"
       - "src/client/Dockerfile"
       - "src/client/**"
+  workflow_dispatch:
 
 concurrency:
   group: build-and-push-${{ github.head_ref }}
