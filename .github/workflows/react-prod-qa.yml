@@ -1,18 +1,10 @@
-name: react ci-cd
+name: react ci for prod and qa
 env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
   IMAGE_REPO_NAME: "react"
 
 on:
-  push:
-    branches: 
-      - qa
-      - main
-    paths:
-      - ".github/workflows/react-cicd.yml"
-      - "src/client/Dockerfile"
-      - "src/client/**"
   workflow_dispatch:
 
 concurrency:
