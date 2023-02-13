@@ -1,19 +1,18 @@
-name: react-cache
+name: react ci-cd
 env:
   DOCKERHUB_REGISTRY_USER: swetank01
   DOCKERHUB_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-  IMAGE_REPO_NAME: "react-cache"
+  IMAGE_REPO_NAME: "react"
 
 on:
   push:
     branches: 
-      - dev
       - qa
       - main
     paths:
-      - ".github/workflows/react-cache.yml"
-      - "deployment/react-cache/Dockerfile"
-      - "src/client/package.json"
+      - ".github/workflows/react-cicd.yml"
+      - "src/client/Dockerfile"
+      - "src/client/**"
   workflow_dispatch:
 
 jobs:
@@ -28,21 +27,15 @@ jobs:
       
       - name: Build the Docker image
         run: |
-          docker build . --file ./deployment/react-cache/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
-
+          docker build . --file ./src/client/Dockerfile --build-arg TAG=$GITHUB_REF_SLUG --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
   push:
-    name: Push to dockerhub
-    needs: build
     runs-on: ubuntu-20.04
-    steps:
+    steps:          
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ env.DOCKERHUB_REGISTRY_USER }}
           password: ${{ env.DOCKERHUB_REGISTRY_PASSWORD }}
-
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v4
-
+      
       - name: Docker Push
         run: docker push $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
