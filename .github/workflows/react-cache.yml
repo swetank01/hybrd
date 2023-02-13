@@ -16,6 +16,9 @@ on:
       - "src/client/package.json"
   workflow_dispatch:
 
+concurrency:
+  group: cache
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -30,11 +33,6 @@ jobs:
         run: |
           docker build . --file ./deployment/react-cache/Dockerfile --tag $DOCKERHUB_REGISTRY_USER/$IMAGE_REPO_NAME:$GITHUB_REF_SLUG
 
-  push:
-    name: Push to dockerhub
-    needs: build
-    runs-on: ubuntu-20.04
-    steps:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:

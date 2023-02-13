@@ -13,8 +13,9 @@ on:
       - "src/client/Dockerfile"
       - "src/client/**"
 
-concurreny:
+concurrency:
   group: build-and-push
+  cancel-in-progress: true
 
 jobs:
   build:

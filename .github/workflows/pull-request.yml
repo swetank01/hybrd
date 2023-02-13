@@ -2,7 +2,7 @@ name: PR - Dependency Check
 on: 
   pull_request:
 
-concurreny:
+concurrency:
   group: check-dependency
 
 jobs:
